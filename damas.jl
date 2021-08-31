@@ -21,16 +21,17 @@ se 2 "o"(player2) começa.
     "-" "o" "-" "o" "-" "o" "-" "o"]
         =#
 
+module Damas
+
+export board_start
+
 function board_start()
 
-        v1 = ["x""-""x""-""x""-""x""-"] 
-#     "-" "x" "-" "x" "-" "x" "-" "x",
-#     "x" "-" "x" "-" "x" "-" "x" "-", 
-#     "-" "-" "-" "-" "-" "-" "-" "-",
-#     "-" "-" "-" "-" "-" "-" "-" "-",
-#     "-" "o" "-" "o" "-" "o" "-" "o",
-#     "o" "-" "o" "-" "o" "-" "o" "-",
-#     "-" "o" "-" "o" "-" "o" "-" "o"]
+        v1 = ["Hello World"] 
 
-    return v1
-end 
+return v1
+end
+
+
+
+end
