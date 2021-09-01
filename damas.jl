@@ -21,17 +21,57 @@ se 2 "o"(player2) começa.
     "-" "o" "-" "o" "-" "o" "-" "o"]
         =#
 
-module Damas
+# module Damas
 
-export board_start
+# export board_start
+
+using Printf
+# using Unicode
 
 function board_start()
 
-        v1 = ["Hello World"] 
+        tabuleiro = [
+        "/" "A" "B" "C" "D" "E" "F" "G" "H";
+        "1" "x" "-" "x" "-" "x" "-" "x" "-";
+        "2" "-" "x" "-" "x" "-" "x" "-" "x";
+        "3" "x" "-" "x" "-" "x" "-" "x" "-"; 
+        "4" "-" "-" "-" "-" "-" "-" "-" "-";
+        "5" "-" "-" "-" "-" "-" "-" "-" "-";
+        "6" "-" "o" "-" "o" "-" "o" "-" "o";
+        "7" "o" "-" "o" "-" "o" "-" "o" "-";
+        "8" "-" "o" "-" "o" "-" "o" "-" "o"]
 
-return v1
+return tabuleiro
 end
 
+function sort_player()
+        
+        a = rand(1:10,1)
+        a = a[1]        
 
+        if a >= 5
+                player = 0
+                player_name = "x"
+        else 
+                player = 1
+                player_name = "o"
+        end
+
+        return player, player_name
+end
+
+function get_input()
+
+        print("Escolha a coluna (A, B, C...): ")
+        coluna = readline()
+        coluna = uppercase(coluna)
+
+        print("Escolha a linha (1, 2, 3...): ")
+        linha = readline()
+        linha = parse(Int8, linha)
+
+        println("você escolheu $coluna$linha?")
+
+return linha, coluna
 
 end
