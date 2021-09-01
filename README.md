@@ -1,2 +1,2 @@
-# Welcome, I've been expecting you.
+# This is the architecture being implemented in Checker.jl.
 ![](./Checker_Architecture.svg)
