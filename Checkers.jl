@@ -1,11 +1,16 @@
 #= 
 efetivamente roda o jogo
 =# 
-# include("damas.jl")
+include("damas.jl")
 
-using Main.Damas
+# using DelimitedFiles
 
-t = board_start()
+# t = board_start()
 
-println("hello there")
-println(t)
+# writedlm(stdout,t)
+
+# linha, coluna = get_input()
+
+player, player_name = sort_player()
+
+
