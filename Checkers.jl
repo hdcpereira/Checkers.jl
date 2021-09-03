@@ -1,20 +1,21 @@
-#= 
+#=
 efetivamente roda o jogo
-=# 
+=#
 include("damas.jl")
 
-# using DelimitedFiles
+using DelimitedFiles
 
-t = board_start()
+#typeof t = Matrix{String}
+table = board_start()
 
-# writedlm(stdout,t)
+writedlm(stdout,table)
 
-linha, coluna = get_piece_place()
+player, player_name = sort_player()
 
-mover_para_coluna, mover_para_linha = get_piece_movement()
+println("its $player, '$player_name' turn")
 
-player = 0
+selected_col, selected_row = get_piece_place()
 
-validate_move(player ,linha, coluna, mover_para_linha, mover_para_coluna)
+# new_col, new_row = get_piece_movement()
 
-
+validate_position(player_name, selected_col, selected_row, table)
