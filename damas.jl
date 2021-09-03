@@ -12,6 +12,7 @@ se 2 "o"(player2) começa.
         -> jogador com mais peças ganha
 =#
 
+using Crayons
 
 function board_start()
 
@@ -27,6 +28,36 @@ function board_start()
         "A" "B" "C" "D" "E" "F" "G" "H" "/"]
         return tabuleiro
 end
+
+function num_between(i::Int64, j::Int64)
+
+    while true
+
+        x = readline()
+        if parse(Int8,x) in i:j
+            x = parse(Int8,x)
+	    return x
+        else
+            print(Crayon(foreground=:red),"INVALID INPUT ",Crayon(reset = true),"type a valid number [$i:$j]: ")
+        end
+    end
+end
+
+function letter_between_AH()
+
+    while true
+
+        t = readline()
+        t = uppercase(t)
+        if "A" <= t <= "H"
+            return t
+        else
+            print(Crayon(foreground=:red),"INVALID INPUT ",Crayon(reset = true),"type a valid letter [A:H]: ")
+        end
+    end
+end
+
+
 
 function sort_player()
 
@@ -45,48 +76,54 @@ function sort_player()
 end
 
 
-function get_int8()
-    while true
-        x = tryparse(Int8, readline())
-        isnothing(x) || return x
-    end
-end
-
 function get_piece_place()
 
     println("choose which piece you want to move")
 
-#TODO use is_a_to_h to test whether column selected is valid
-
-    # function is_a_to_h(text)
-    #     return all(c -> 0x41 <= UInt8(c) <= 0x48, text)
-    # end
-
     print("Select column [A:H]: ")
-    selected_col = readline()
-    selected_col = uppercase(selected_col)
+    selected_col = letter_between_AH()
 
     print("Select row [1:8]: ")
-    selected_row = get_int8()
+    selected_row = num_between(1,8)
 
     println("you chose (C|R) ($selected_col|$selected_row)")
 
     return selected_col, selected_row
 end
 
-function get_piece_movement()
+
+function get_piece_movement(selected_col::String, selected_row::Int8, player, table)
     println("choose where the chosen piece will go to")
 
-    print("select column [A,H]: ")
-    new_col = readline()
-    new_col = uppercase(new_col)
+    println("[Northeast[0], Northwest[1], Southeast[2], Southwest[3]]")
 
-    print("select row [1,8]: ")
-    new_row = get_int8()
+    r = findfirst(x-> x == selected_col, table[9,:])
 
-    println("You chose (C|R) ($new_col|$new_row)")
+    direction = num_between(0,3)
 
-    return new_col, new_row
+    if player == 0
+        if direction == 0
+            if occursin("-", table[selected_row - 1, r + 1])
+                println(Crayon(foreground = :green), "valid move")
+            elseif occursin("x",table[selected_row - 1, r + 1])
+                println(Crayon(foreground = :red),"invalid move")
+            end
+        end
+    end
+
+    if player == 1
+        if direction == 0
+            if occursin("-", table[selected_row - 1, r + 1])
+                println(Crayon(foreground = :green), "valid move")
+            elseif occursin("o",table[selected_row - 1, r + 1])
+                println(Crayon(foreground = :red),"invalid move")
+            end
+        end
+    end
+
+    # println("Your piece will move to (C|R) ($new_col|$new_row)")
+
+    return nothing
 end
 
 function validate_position(player_name, selected_col, selected_row, table)
@@ -98,4 +135,8 @@ function validate_position(player_name, selected_col, selected_row, table)
     else
         println("movimento invalido seu corno")
     end
+end
+
+function validate_move(player_name, selected_col, selected_row, new_col, new_row, table)
+
 end
