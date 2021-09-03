@@ -1,2 +1,3 @@
-# This is the architecture being implemented in Checker.jl.
+# Checkers.jl
+### This is the architecture being implemented in Checker.jl.
 ![](./Checker_Architecture.svg)
