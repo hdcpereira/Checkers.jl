@@ -1,9 +1,9 @@
 #= definir uma classe jogo que contenha
 - uma inicialização do tabuleiro
 - gera um número aleatório entre 1 e 2, se 1 "x"(player1) começa
-se 2 "o"(player2) começa. 
+se 2 "o"(player2) começa.
 - movimentação:
-        -> escolhe uma peça para mover 
+        -> escolhe uma peça para mover
         -> escolhe para onde quer mover
         -> jogo checa validade do movimento (se válido, executa, se não apresenta mensagem de erro e pede um movimento valido)
         -> se o jogador passar por cima de uma peça do oponente, ganha 1 ponto no placar.
@@ -15,29 +15,28 @@ se 2 "o"(player2) começa.
 
 function board_start()
 
-        tabuleiro = [
-        "/" "A" "B" "C" "D" "E" "F" "G" "H";
-        "1" "x" "-" "x" "-" "x" "-" "x" "-";
-        "2" "-" "x" "-" "x" "-" "x" "-" "x";
-        "3" "x" "-" "x" "-" "x" "-" "x" "-"; 
-        "4" "-" "-" "-" "-" "-" "-" "-" "-";
-        "5" "-" "-" "-" "-" "-" "-" "-" "-";
-        "6" "-" "o" "-" "o" "-" "o" "-" "o";
-        "7" "o" "-" "o" "-" "o" "-" "o" "-";
-        "8" "-" "o" "-" "o" "-" "o" "-" "o"]
-
+        global tabuleiro = [
+        "x" "-" "x" "-" "x" "-" "x" "-" "1";
+        "-" "x" "-" "x" "-" "x" "-" "x" "2";
+        "x" "-" "x" "-" "x" "-" "x" "-" "3";
+        "-" "-" "-" "-" "-" "-" "-" "-" "4";
+        "-" "-" "-" "-" "-" "-" "-" "-" "5";
+        "-" "o" "-" "o" "-" "o" "-" "o" "6";
+        "o" "-" "o" "-" "o" "-" "o" "-" "7";
+        "-" "o" "-" "o" "-" "o" "-" "o" "8";
+        "A" "B" "C" "D" "E" "F" "G" "H" "/"]
         return tabuleiro
 end
 
 function sort_player()
-        
+
         a = rand(1:10,1)
-        a = a[1]        
+        a = a[1]
 
         if a >= 5
                 player = 0
                 player_name = "x"
-        else 
+        else
                 player = 1
                 player_name = "o"
         end
@@ -45,59 +44,58 @@ function sort_player()
         return player, player_name
 end
 
+
+function get_int8()
+    while true
+        x = tryparse(Int8, readline())
+        isnothing(x) || return x
+    end
+end
+
 function get_piece_place()
 
-        print("Escolha a coluna (A, B, C...): ")
-        coluna = readline()
-        coluna = uppercase(coluna)
+    println("choose which piece you want to move")
 
-        print("Escolha a linha (1, 2, 3...): ")
-        linha = readline()
-        linha = parse(Int8, linha)
+#TODO use is_a_to_h to test whether column selected is valid
 
-        println("você escolheu $coluna$linha")
+    # function is_a_to_h(text)
+    #     return all(c -> 0x41 <= UInt8(c) <= 0x48, text)
+    # end
 
-        return linha, coluna
+    print("Select column [A:H]: ")
+    selected_col = readline()
+    selected_col = uppercase(selected_col)
+
+    print("Select row [1:8]: ")
+    selected_row = get_int8()
+
+    println("you chose (C|R) ($selected_col|$selected_row)")
+
+    return selected_col, selected_row
 end
 
 function get_piece_movement()
+    println("choose where the chosen piece will go to")
 
-        print("Escolha para onde deseja mover (coluna)")
-        mover_para_coluna = readline()
-        mover_para_coluna = uppercase(mover_para_coluna)
+    print("select column [A,H]: ")
+    new_col = readline()
+    new_col = uppercase(new_col)
 
-        print("Escolha para onde deseja mover (linha)")
-        mover_para_linha = readline()
-        mover_para_linha = parse(Int8, mover_para_linha)
+    print("select row [1,8]: ")
+    new_row = get_int8()
 
-        println("você escolheu $mover_para_coluna$mover_para_linha")
+    println("You chose (C|R) ($new_col|$new_row)")
 
-        return mover_para_coluna, mover_para_linha
+    return new_col, new_row
 end
 
-function validate_move(player::Int ,linha::Int8, coluna::String, mov_linha::Int8, mov_col::String)
+function validate_position(player_name, selected_col, selected_row, table)
 
-#movimento de uma peça normal, sem ser rei#
+    column_index = findfirst(x-> x == selected_col, table[9,:])
 
-        if player == 0
-
-                if mov_linha == linha + 1
-                        println("o seu movimento é permitido") & validate_move = true
-                else println("o seu movimento não é valido") & validate_move = false
-                end
-        end
-
-        if player == 1
-                if mov_linha == linha - 1
-                        println("o seu movimento é permitido") & validate_move = true
-                else println("o seu movimento não é valido") & validate_move = false
-                end
-        end
-
-        return validate_move
-end
-
-
-function move_piece(linha::Int8, coluna::String, mov_linha::Int8, mov_col::String, tabuleiro::Matrix{String})
-
+    if table[selected_row, column_index] == player_name
+        return println("IHÁ")
+    else
+        println("movimento invalido seu corno")
+    end
 end
