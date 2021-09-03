@@ -14,7 +14,7 @@ player, player_name = sort_player()
 
 println("its $player, '$player_name' turn")
 
-selected_col, selected_row = get_piece_place()
+selected_col, selected_row = get_piece_place(table, player, player_name)
 
 get_piece_movement(selected_col, selected_row, player, table)
 

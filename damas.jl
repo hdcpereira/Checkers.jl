@@ -76,67 +76,93 @@ function sort_player()
 end
 
 
-function get_piece_place()
+function get_piece_place(table, player, player_name)
 
     println("choose which piece you want to move")
+    while true
+        print("Select column [A:H]: ")
+        selected_col = letter_between_AH()
 
-    print("Select column [A:H]: ")
-    selected_col = letter_between_AH()
+        print("Select row [1:8]: ")
+        selected_row = num_between(1,8)
 
-    print("Select row [1:8]: ")
-    selected_row = num_between(1,8)
+        r = findfirst(x-> x == selected_col, table[9,:])
+
+        if player == 0
+            if table[selected_row, r] == player_name
+                return selected_col, selected_row
+            else
+                println(Crayon(foreground=:red),"INVALID INPUT ",Crayon(reset = true),"type a valid piece", Crayon(foreground =:blue),"$player_name ",Crayon(reset = true))
+            end
+        end
+
+        if player == 1
+            if table[selected_row, r] == player_name
+                return selected_col, selected_row
+            else
+                println(Crayon(foreground=:red),"INVALID INPUT ",Crayon(reset = true),"type a valid piece", Crayon(foreground =:blue),"$player_name",Crayon(reset = true))
+            end
+        end
+    end
+
 
     println("you chose (C|R) ($selected_col|$selected_row)")
 
-    return selected_col, selected_row
+
 end
 
 
 function get_piece_movement(selected_col::String, selected_row::Int8, player, table)
-    println("choose where the chosen piece will go to")
-
-    println("[Northeast[0], Northwest[1], Southeast[2], Southwest[3]]")
 
     r = findfirst(x-> x == selected_col, table[9,:])
 
-    direction = num_between(0,3)
+    while true
 
-    if player == 0
-        if direction == 0
-            if occursin("-", table[selected_row - 1, r + 1])
-                println(Crayon(foreground = :green), "valid move")
-            elseif occursin("x",table[selected_row - 1, r + 1])
-                println(Crayon(foreground = :red),"invalid move")
+        println("choose where the chosen piece will go to")
+
+        print("[Northeast[0], Northwest[1], Southeast[2], Southwest[3]]: ")
+
+        direction = num_between(0,3)
+
+        if player == 0
+            if direction == 0
+                if occursin("-", table[selected_row - 1, r + 1])
+                    new_col = table[9,r + 1]
+                    new_row = selected_row - 1
+                    println(Crayon(foreground = :green), "valid move",Crayon(reset = true))
+                    return new_col, new_row
+                elseif occursin("o",table[selected_row - 1, r + 1])
+                    new_col = table[9,r + 2]
+                    new_row = selected_row - 2
+                    println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
+                    return new_col, new_row
+                else
+                    println(Crayon(foreground = :red),"invalid move",Crayon(reset = true))
+                end
+            end
+        end
+
+        if player == 1
+            if direction == 0
+                if occursin("-", table[selected_row - 1, r + 1])
+                    new_col = table[9,r + 1]
+                    new_row = selected_row - 1
+                    println(Crayon(foreground = :green), "valid move",Crayon(reset = true))
+                    return new_col, new_row
+                elseif occursin("x",table[selected_row - 1, r + 1])
+                    new_col = table[9,r + 2]
+                    new_row = selected_row - 2
+                    println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
+                    return new_col, new_row
+                else
+                    println(Crayon(foreground = :red),"invalid move",Crayon(reset = true))
+                end
             end
         end
     end
-
-    if player == 1
-        if direction == 0
-            if occursin("-", table[selected_row - 1, r + 1])
-                println(Crayon(foreground = :green), "valid move")
-            elseif occursin("o",table[selected_row - 1, r + 1])
-                println(Crayon(foreground = :red),"invalid move")
-            end
-        end
-    end
-
-    # println("Your piece will move to (C|R) ($new_col|$new_row)")
-
-    return nothing
+    println("Your piece will move to (C|R) ($new_col|$new_row)")
 end
 
-function validate_position(player_name, selected_col, selected_row, table)
-
-    column_index = findfirst(x-> x == selected_col, table[9,:])
-
-    if table[selected_row, column_index] == player_name
-        return println("IHÁ")
-    else
-        println("movimento invalido seu corno")
-    end
-end
-
-function validate_move(player_name, selected_col, selected_row, new_col, new_row, table)
+function execute_move(player_name, selected_col, selected_row, new_col, new_row, table)
 
 end
