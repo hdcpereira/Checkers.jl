@@ -1,7 +1,7 @@
 # #=
 # efetivamente roda o jogo
 # =#
-include("damas.jl")
+include("source.jl")
 
 using DelimitedFiles
 
@@ -10,13 +10,13 @@ table = board_start()
 
 writedlm(stdout,table)
 
-player, player_name = sort_player()
+player, player_normal_piece, player_king_piece = sort_player()
 
-println("its $player, '$player_name' turn")
+println("its $player, '$player_normal_piece' turn")
 
-selected_col, selected_row = get_piece_place(table, player, player_name)
+new_col, new_row = get_piece_movement(player, player_normal_piece, player_king_piece, table)
 
-get_piece_movement(selected_col, selected_row, player, table)
+println("$new_col, $new_row")
 
 # validate_position(player_name, selected_col, selected_row, table)
 
