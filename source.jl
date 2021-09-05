@@ -68,6 +68,22 @@ function sort_player()
         return player, player_normal_piece, player_king_piece
 end
 
+function change_player(player::Int8)
+
+    if player == 1
+        player = Int8(0)
+        player_normal_piece = "x"
+        player_king_piece = "X"
+
+    elseif player == 0
+        player = Int8(1)
+        player_normal_piece = "o"
+        player_king_piece = "O"
+
+    end
+
+    return player, player_normal_piece, player_king_piece
+end
 
 function get_piece_place(table::Matrix{String}, player::Int8, player_normal_piece::String, player_king_piece::String)
 
@@ -107,14 +123,34 @@ end
 
 function get_piece_movement(player::Int8, player_normal_piece::String, player_king_piece::String, table::Matrix{String})
 
-    new_col, new_row = directions(player, player_normal_piece, player_king_piece, table)
+    new_col, new_row, remove_piece, selected_col, selected_row = directions(player, player_normal_piece, player_king_piece, table)
 
     println("Your piece will move to (C|R) ($new_col|$new_row)")
 
-    return new_col, new_row
+    return new_col, new_row, remove_piece, selected_col, selected_row
 
 end
 
-function execute_move(player_normal_piece, selected_col, selected_row, new_col, new_row, table)
+function execute_move(player::Int8, player_normal_piece::String ,player_king_piece::String, selected_col::String, selected_row::Int8, new_col::String, new_row::Int64, remove_piece::Bool, table::Matrix{String})
+
+    c_1 = findfirst(x-> x == new_col, table[9,:])
+    c_2 = findfirst(x-> x == selected_col, table[9,:])
+
+
+    if player == 0
+
+        table[new_row, c_1] = player_normal_piece
+        table[selected_row, c_2] = "-"
+    else
+
+    end
+
+    if player == 1
+
+        table[new_row, c_1] = player_normal_piece
+        table[selected_row, c_2] = "-"
+    else
+
+    end
 
 end

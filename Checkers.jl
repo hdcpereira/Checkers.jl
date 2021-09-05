@@ -1,29 +1,29 @@
-# #=
-# efetivamente roda o jogo
-# =#
 include("source.jl")
 
 using DelimitedFiles
 
-# #typeof t = Matrix{String}
 table = board_start()
 
 writedlm(stdout,table)
 
 player, player_normal_piece, player_king_piece = sort_player()
 
-println("its $player, '$player_normal_piece' turn")
+println("hello there, the first player will be '$player_normal_piece'")
 
-new_col, new_row = get_piece_movement(player, player_normal_piece, player_king_piece, table)
+while true
 
-println("$new_col, $new_row")
+    global player
+    global player_normal_piece
+    global player_king_piece
 
-# validate_position(player_name, selected_col, selected_row, table)
+    new_col, new_row, remove_piece, selected_col, selected_row = get_piece_movement(player, player_normal_piece, player_king_piece, table)
 
-# x = num_between_18("9")
+    execute_move(player, player_normal_piece, player_king_piece, selected_col, selected_row, new_col, new_row, remove_piece, table)
 
-# println(x)
+    player, player_normal_piece, player_king_piece = change_player(player)
 
-# x = letter_between_AH("H")
+    writedlm(stdout,table)
 
-# println(x)
+    println("its '$player_normal_piece' turn now")
+
+end
