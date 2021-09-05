@@ -136,20 +136,15 @@ function execute_move(player::Int8, player_normal_piece::String ,player_king_pie
     c_1 = findfirst(x-> x == new_col, table[9,:])
     c_2 = findfirst(x-> x == selected_col, table[9,:])
 
-
     if player == 0
 
         table[new_row, c_1] = player_normal_piece
         table[selected_row, c_2] = "-"
-    else
 
-    end
-
-    if player == 1
+    elseif player == 1
 
         table[new_row, c_1] = player_normal_piece
         table[selected_row, c_2] = "-"
-    else
 
     end
 

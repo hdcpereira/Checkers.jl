@@ -7,8 +7,8 @@ while true
 
 selected_col, selected_row = get_piece_place(table, player, player_normal_piece, player_king_piece)
 
-println("[Northwest[0], Northeast[1], Southeast[2], Southwest[3]]: ")
-println("   If you want to go back to choose piece position [4]    ")
+println(" [Northwest[0], Northeast[1], Southeast[2], Southwest[3]]: ")
+println("====If you want to go back to choose piece position [4]====")
 
 direction = num_between(0,4)
 
@@ -29,6 +29,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("o",table[selected_row + 1, r + 1]) || occursin("O",table[selected_row + 1, r + 1])
                     new_col = table[9,r + 2]
                     new_row = selected_row + 2
+                    table[selected_row + 1, r + 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -49,6 +50,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("o",table[selected_row + 1, r - 1]) || occursin("O",table[selected_row + 1, r - 1])
                     new_col = table[9,r - 2]
                     new_row = selected_row + 2
+                    table[selected_row + 1, r - 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -80,6 +82,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("o",table[selected_row - 1, r - 1]) || occursin("O",table[selected_row - 1, r - 1])
                     new_col = table[9,r - 2]
                     new_row = selected_row - 2
+                    table[selected_row - 1, r - 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -100,6 +103,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("o",table[selected_row - 1, r + 1]) || occursin("O",table[selected_row - 1, r + 1])
                     new_col = table[9,r + 2]
                     new_row = selected_row - 2
+                    table[selected_row - 1, r + 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -120,6 +124,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("o",table[selected_row + 1, r + 1]) || occursin("O",table[selected_row + 1, r - 1])
                     new_col = table[9,r + 2]
                     new_row = selected_row + 2
+                    table[selected_row + 1, r + 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -140,6 +145,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("o",table[selected_row + 1, r - 1]) || occursin("O",table[selected_row + 1, r - 1])
                     new_col = table[9,r - 2]
                     new_row = selected_row + 2
+                    table[selected_row + 1, r - 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -170,6 +176,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("x",table[selected_row - 1, r - 1]) || occursin("X",table[selected_row - 1, r - 1])
                     new_col = table[9,r - 2]
                     new_row = selected_row - 2
+                    table[selected_row - 1, r - 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -190,6 +197,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("x",table[selected_row - 1, r + 1]) || occursin("X",table[selected_row - 1, r + 1])
                     new_col = table[9,r + 2]
                     new_row = selected_row - 2
+                    table[selected_row - 1, r + 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -221,6 +229,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("x",table[selected_row - 1, r - 1]) || occursin("X",table[selected_row - 1, r - 1])
                     new_col = table[9,r - 2]
                     new_row = selected_row - 2
+                    table[selected_row - 1, r - 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -241,6 +250,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("x",table[selected_row - 1, r + 1]) || occursin("X",table[selected_row - 1, r + 1])
                     new_col = table[9,r + 2]
                     new_row = selected_row - 2
+                    table[selected_row - 1, r + 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -261,6 +271,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("x",table[selected_row + 1, r + 1]) || occursin("X",table[selected_row + 1, r - 1])
                     new_col = table[9,r + 2]
                     new_row = selected_row + 2
+                    table[selected_row + 1, r + 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
@@ -281,6 +292,7 @@ r = findfirst(x-> x == selected_col, table[9,:])
                 elseif occursin("x",table[selected_row + 1, r - 1]) || occursin("X",table[selected_row + 1, r - 1])
                     new_col = table[9,r - 2]
                     new_row = selected_row + 2
+                    table[selected_row + 1, r - 1] = "-"
                     remove_piece = true
                     println(Crayon(foreground = :green),"valid move",Crayon(reset = true))
                     return new_col, new_row, remove_piece, selected_col, selected_row
